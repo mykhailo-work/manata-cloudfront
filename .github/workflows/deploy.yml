@@ -28,8 +28,8 @@ jobs:
             if [ -d "${{ secrets.DEPLOY_DIR }}/.git" ]; then
               cd ${{ secrets.DEPLOY_DIR }} && git pull origin main
             else
-              git clone https://github.com/mykhailo-work/manata-cloudfront.git ${{ secrets.DEPLOY_DIR }}
               cd ${{ secrets.DEPLOY_DIR }}
+              git clone https://github.com/mykhailo-work/manata-cloudfront.git
             fi
             docker compose pull
             docker compose up -d --build
