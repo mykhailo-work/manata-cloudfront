@@ -18,11 +18,10 @@ services:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     restart: always
-    # volumes:
-    #   - static_volume:/src/staticfiles/
-    #   - media_volume:/src/mediafiles/
+    volumes:
+      - /etc/ssl/private/pluggedtable.com/:/etc/ssl/private/
     ports:
-      - '80:80'
+      - '443:443'
     depends_on:
       - api
     <<: *networks_backend
