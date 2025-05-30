@@ -1,0 +1,31 @@
+x-networks-backend: &networks_backend
+  networks:
+    - backend
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile
+    container_name: api
+    command: ./docker/api/start
+    restart: unless-stopped
+    <<: *networks_backend
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    restart: always
+    # volumes:
+    #   - static_volume:/src/staticfiles/
+    #   - media_volume:/src/mediafiles/
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    <<: *networks_backend
+
+networks:
+  backend:

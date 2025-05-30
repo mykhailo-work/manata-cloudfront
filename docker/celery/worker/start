@@ -1,0 +1,7 @@
+#!/bin/sh
+
+POOL="gevent"
+QUEUES="celery,images,videos"
+CONCURRENCY=100
+
+celery -A almus worker -l INFO -E -P $POOL -c $CONCURRENCY -Q $QUEUES
