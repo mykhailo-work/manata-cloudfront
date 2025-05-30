@@ -25,8 +25,9 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh ${{ secrets.EC2_HOST }} << 'EOF'
-            if [ -d "${{ secrets.DEPLOY_DIR }}/.git" ]; then
             echo "$PWD"
+
+            if [ -d "${{ secrets.DEPLOY_DIR }}/.git" ]; then
               cd ${{ secrets.DEPLOY_DIR }} && sudo git pull origin main
             else
               cd ${{ secrets.DEPLOY_DIR }}
