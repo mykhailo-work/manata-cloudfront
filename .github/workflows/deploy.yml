@@ -26,9 +26,9 @@ jobs:
         run: |
           ssh ${{ secrets.EC2_HOST }} << 'EOF'
             if [ -d "${{ secrets.DEPLOY_DIR }}/.git" ]; then
-              cd ${{ secrets.DEPLOY_DIR }} && sudo git pull origin main
+              sudo cd ${{ secrets.DEPLOY_DIR }} && sudo git pull origin main
             else
-              cd ${{ secrets.DEPLOY_DIR }}
+              sudo cd ${{ secrets.DEPLOY_DIR }}
               sudo git clone https://github.com/mykhailo-work/manata-cloudfront.git
             fi
             docker compose pull
