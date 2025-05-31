@@ -25,12 +25,14 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh ${{ secrets.EC2_HOST }} << 'EOF'
-            if [ -d "${{ secrets.DEPLOY_DIR }}/.git" ]; then
-              cd ${{ secrets.DEPLOY_DIR }} && sudo git pull origin main
-            else
-              cd ${{ secrets.DEPLOY_DIR }}
-              sudo git clone https://github.com/mykhailo-work/manata-cloudfront.git .
-            fi
+            set -e
+
+            sudo rm -rf ${{ secrets.DEPLOY_DIR }}
+            sudo mkdir ${{ secrets.DEPLOY_DIR }}
+            cd ${{ secrets.DEPLOY_DIR }}
+            
+            sudo git clone https://github.com/mykhailo-work/manata-cloudfront.git .
+            
             sudo docker compose down
             docker image prune -a -f
             docker-compose down --volumes --remove-orphans
