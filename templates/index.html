@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <title>Hello Page</title>
   <script>
-    function updateDateTime() {
+    window.onload = function () {
       const now = new Date();
-      const dateTimeString = now.toLocaleString(); // Shows both date and time
+      const dateTimeString = now.toLocaleString(); // e.g., "7/10/2025, 3:45:00 PM"
       document.getElementById('datetime').textContent = dateTimeString;
-    }
-
-    // Update every second
-    setInterval(updateDateTime, 1000);
-    window.onload = updateDateTime;
+    };
   </script>
 </head>
 <body>
