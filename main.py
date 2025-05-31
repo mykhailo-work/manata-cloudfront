@@ -20,7 +20,7 @@ def read_root(request: Request, cache_time: int = None):
         "context": {"query_token": cache_time},
     }
     
-    if not cache_time:
+    if cache_time:
         response_data["headers"] = {
             "Cache-Control": cache_time,
         }
