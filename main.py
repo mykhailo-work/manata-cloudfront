@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Header
+from fastapi import FastAPI, Request, Header, Response
 
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -14,7 +14,8 @@ app.add_middleware(
 )
 
 @app.get("/", response_class=HTMLResponse)
-def read_root(request: Request, query_token: Annotated[str | None, Header()] = None):
+def read_root(request: Request, response: Response, cache_time: int = None):
+    response.headers["Cache-Control"] = cache_time or "no-cache"
     return templates.TemplateResponse(
-        request=request, name="index.html", context={"query_token": query_token}
+        request=request, name="index.html", context={"query_token": cache_time}
     )
